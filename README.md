@@ -1,38 +1,49 @@
 # GitHub Web Launcher
 
-Hacky installation instructions:
+## Using Github Web Launcher
 
+Install globally:
 ```
-npm install
-
-cd node_modules/webdriver-manager-replacement
-
-npm install
-npm run tsc
-
-cd ../..
-
+npm install -g github-web-launcher
 ```
 
-Fake in a global install by setting the path to the bin directory.
-
+In a git repo folder via command line:
 ```
-export PATH=$PATH:/path/to/github-web-launcher/bin
+web
 ```
 
+Why just `web`, because its short and easy to remember.
 
+
+## Example using GitHub Web Launcher
 
 An example of using it:
 
-```
-# in the Protractor repo, protractor/lib/driverProviders/
-web
+In the terminal, in the protractor repository, under the folder path `protractor/lib/driverProviders/` typing in `web` by default will navigate to the origin master url on GitHub found in the `.git/config` and navigate to the folder `lib/driverProviders`.
 
-# Downloads chromedriver with webdriver-manager
-# Uses chromedriver to find the Chrome launch command from chrome://version
-# Launches Chrome to the origin master for Protractor under the directory lib/driverProviders
-# https://github.com/cnishina/tree/master/lib/driverProviders
+The result is https://github.com/cnishina/tree/master/lib/driverProviders
+
+The contents of the `.git/config` is as follows:
 ```
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote "origin"]
+	url = git@github.com:cnishina/protractor
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[remote "upstream"]
+	url = git@github.com:angular/protractor
+	fetch = +refs/heads/*:refs/remotes/upstream/*
+```
+
+If this is the first time running it, it will download ChromeDriver, launch Chrome and navigate to `chrome://version`. It will parse the command line for Chrome and navigate to the url above.
 
 ## Roadmap
 
