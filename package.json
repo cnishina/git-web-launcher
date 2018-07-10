@@ -1,8 +1,7 @@
 {
-  "name": "webderpy-launcher",
+  "name": "github-web-launcher",
   "version": "0.0.0",
   "description": "Launching from command line to GitHub",
-  "main": "index.js",
   "bin": {
     "web": "bin/web-launcher"
   },

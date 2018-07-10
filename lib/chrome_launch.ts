@@ -36,8 +36,6 @@ export function getChromeInstallation(): string|null {
 }
 
 export function findGitConfig(currentPath: string, remoteName: string, remoteBranch: string, appendPath: string): string|null {
-  console.log(currentPath);
-  console.log(appendPath);
   if (currentPath === '/') {
     return null;
   }
@@ -46,7 +44,6 @@ export function findGitConfig(currentPath: string, remoteName: string, remoteBra
     if (statSync.isDirectory()) {
       let gitConfig = parseGitConfig.sync({path: path.resolve(currentPath, '.git', 'config')});
       let remote: string = gitConfig[`remote "${remoteName}"`]['url'];
-      console.log(remote);
       if (remote.startsWith('http')) {
         return remote;
       } else {
