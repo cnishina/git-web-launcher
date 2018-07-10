@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "Launching from command line to GitHub",
   "bin": {
-    "web": "bin/web-launcher"
+    "github-web-launcher": "bin/github-web-launcher",
+    "web": "bin/web"
   },
   "scripts": {
     "prepublish": "tsc",
