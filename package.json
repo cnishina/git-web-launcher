@@ -1,11 +1,12 @@
 {
   "name": "github-web-launcher",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Launching from command line to GitHub",
   "bin": {
     "web": "bin/web-launcher"
   },
   "scripts": {
+    "prepublish": "tsc",
     "tsc": "tsc",
     "test": "tsc && jasmine JASMINE_CONFIG_PATH=spec/support/jasmine.json"
   },
@@ -22,7 +23,7 @@
   "dependencies": {
     "parse-git-config": "^2.0.2",
     "selenium-webdriver": "^4.0.0-alpha.1",
-    "webdriver-manager-replacement": "github:cnishina/webdriver-manager-replacement"
+    "webdriver-manager-replacement": "^0.1.0"
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.8",
