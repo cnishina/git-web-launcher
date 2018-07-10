@@ -5,7 +5,7 @@ Hacky installation instructions:
 ```
 npm install
 
-cd node_modules/webdriver-manager
+cd node_modules/webdriver-manager-replacement
 
 npm install
 npm run tsc
