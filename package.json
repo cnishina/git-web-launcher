@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Launching from command line to GitHub",
   "main": "index.js",
+  "bin": {
+    "web": "bin/web-launcher"
+  },
   "scripts": {
     "tsc": "tsc",
     "test": "tsc && jasmine JASMINE_CONFIG_PATH=spec/support/jasmine.json"
@@ -18,12 +21,14 @@
   },
   "homepage": "https://github.com/cnishina/webderpy-launcher#readme",
   "dependencies": {
+    "parse-git-config": "^2.0.2",
     "selenium-webdriver": "^4.0.0-alpha.1",
     "webdriver-manager": "github:cnishina/webderpy-manager"
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.8",
     "@types/node": "^10.5.2",
+    "@types/parse-git-config": "^2.0.0",
     "@types/selenium-webdriver": "^3.0.10",
     "jasmine": "^3.1.0",
     "typescript": "^2.9.2"
