@@ -22,7 +22,7 @@
   "dependencies": {
     "parse-git-config": "^2.0.2",
     "selenium-webdriver": "^4.0.0-alpha.1",
-    "webdriver-manager": "github:cnishina/webderpy-manager"
+    "webdriver-manager": "github:cnishina/webdriver-manager-replacement"
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.8",
