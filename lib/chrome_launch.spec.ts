@@ -1,13 +1,9 @@
 import * as childProcess from 'child_process';
-import {setupChromeDriver, findChromeInstallation, getChromeInstallation} from './chrome_launch';
+import { getChromeInstallation } from './chrome_launch';
 
 describe('', () => {
   it('', async() => {
-    let installation = getChromeInstallation();
-    if (!installation) {
-      await setupChromeDriver();
-      installation = await findChromeInstallation();
-    }
+    let installation = await getChromeInstallation();
     childProcess.spawn(installation, ['http://github.com/cnishina/webderpy-launcher']);
   })
 });
