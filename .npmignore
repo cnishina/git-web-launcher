@@ -1,4 +1,5 @@
 dist/spec/
 downloads/
+lib/
 spec/
 tsconfig.json
