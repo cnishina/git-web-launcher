@@ -21,7 +21,7 @@ An example of using it:
 
 In the terminal, in the protractor repository, under the folder path `protractor/lib/driverProviders/` typing in `web` by default will navigate to the origin master url on GitHub found in the `.git/config` and navigate to the folder `lib/driverProviders`.
 
-The result is https://github.com/cnishina/tree/master/lib/driverProviders
+The result is https://github.com/cnishina/protractor/tree/master/lib/driverProviders
 
 The contents of the `.git/config` is as follows:
 ```
