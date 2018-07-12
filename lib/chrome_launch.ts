@@ -14,10 +14,12 @@ let installationFile = path.resolve(outDir, 'installation.info')
  * Asynchronous download for the ChromeDriver binary using webdriver-manager.
  * @returns A promise.
  */
-export async function setupChromeDriver(): Promise<void> {
+export function setupChromeDriver(): Promise<void> {
   let chromeDriver = new ChromeDriver();
   chromeDriver.outDir = outDir;
-  await chromeDriver.updateBinary();
+  return chromeDriver.updateBinary().catch(err => {
+    console.error(err);
+  });
 }
 
 /**

@@ -5,10 +5,9 @@ import {getGitConfigUrl, getChromeInstallation} from './chrome_launch';
 
 // TODO(cnishina): add a verbose flag and use the logging method everywhere.
 
-export async function launch() {
+export function launch() {
   let remote = 'origin';
   let branch = 'master';
-  let chrome: string = '';
   let url: string;
   let currentPath = path.resolve('.');
   let pathOption = '';
@@ -22,10 +21,13 @@ export async function launch() {
   if (argv._.length >= 3) {
     branch = argv._[2];
   }
-  chrome = await getChromeInstallation();
+  getChromeInstallation().then(chrome => {
     url = getGitConfigUrl(remote, branch, pathOption, currentPath, '');
 
-  // Fire and forget Chrome.
-  console.log(url);
-  childProcess.spawn(chrome, [url]);
+    // Fire and forget Chrome.
+    console.log(url);
+    childProcess.spawn(chrome, [url]);
+  }).catch(err => {
+    console.error(err);
+  });
 }
