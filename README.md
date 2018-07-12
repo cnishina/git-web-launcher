@@ -47,18 +47,36 @@ If this is the first time running it, it will download ChromeDriver, launch Chro
 
 ## Roadmap
 
-Support other remotes and branches:
-
+Command line support for:
 ```
-web origin master
-web upstream master
-web origin fork-branch
+web <file> <remote> <branch>
 ```
 
-Support launching files:
-
+View README.md in the default origin master:
 ```
 web README.md
-web origin master README.md
-web upstream master path/to/README.md
+```
+
+View a file or folder relative to the current directory assuming it is in the repository. In the following example, the current folder is `lib`.
+```
+web ../some/path/to/file_or_folder_1 
+// github path = lib/some/path/to/file_or_folder_1
+
+web some/path/to/file_or_folder_2
+// github path = lib/some/path/to/file_or_folder_2
+```
+
+View a file or folder from the base of the repo, independent of where you are located in the repo.
+```
+web /some/path/to/file_or_folder
+```
+
+View the current directory for the upstream remote on a default master branch.
+```
+web . upstream
+```
+
+View the usptream remote and branch foobar
+```
+web <file_or_folder> upstream foobar
 ```

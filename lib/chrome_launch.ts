@@ -57,6 +57,7 @@ export async function getChromeInstallation(): Promise<string> {
  * Get the git config url.
  * @param remoteName The remote name (e.g. 'origin')
  * @param remoteBranch The branch we want to look at (e.g. 'master')
+ * @param pathOption When the user provides a path to a file or folder.
  * @param currentPath The current path of the directory.
  * @param appendPath As we navigate to the parent, append child folders here.
  * @returns Either the url or null if there is no .git/config
@@ -64,6 +65,7 @@ export async function getChromeInstallation(): Promise<string> {
 export function getGitConfigUrl(
     remoteName: string,
     remoteBranch: string,
+    pathOption: string,
     currentPath: string,
     appendPath: string): string|null {
   // If we have navigated to the windows main drive or the root directory,
@@ -80,12 +82,31 @@ export function getGitConfigUrl(
       let gitConfig = parseGitConfig.sync(
         {path: path.resolve(currentPath, '.git', 'config')});
       let remote: string = gitConfig[`remote "${remoteName}"`]['url'];
+
+      // TODO(cnishina): this does not take into account git clone https:// or ssh://git@
+      let url: string;
       if (remote.startsWith('http')) {
-        return remote;
+        url = remote;
       } else {
-        return remote.replace(':', '/').replace('git@', 'https://') +
-          '/tree/' + remoteBranch + '/' + appendPath;
+        url = remote.replace(':', '/').replace('git@', 'https://')
       }
+
+      // get the path of the file or folder
+      if (pathOption.startsWith('/')) {
+        appendPath = pathOption.substring(1);
+      } else {
+        appendPath += pathOption;
+      }
+      appendPath = path.resolve(currentPath, appendPath)
+        .replace(currentPath, '').substring(1);
+      
+      if (fs.statSync(path.resolve(currentPath, appendPath)).isDirectory()) {
+        url += '/tree/' + remoteBranch + '/' + appendPath;
+      } else {
+        url += '/blob/' + remoteBranch + '/' + appendPath;
+      }
+      return url;
+
     } else {
       // if the .git is not a folder, then return null.
       return null;
@@ -100,7 +121,8 @@ export function getGitConfigUrl(
     return getGitConfigUrl(
       remoteName,
       remoteBranch,
-      path.resolve(currentPath, '..'),
+      pathOption,
+      newPath,
       appendPath);
   }
 }
