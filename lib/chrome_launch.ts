@@ -69,7 +69,8 @@ export function getGitConfigUrl(
     remoteBranch: string,
     pathOption: string,
     currentPath: string,
-    appendPath: string): string|null {
+    appendPath: string,
+    gitFolder: string = '.git'): string|null {
   // If we have navigated to the windows main drive or the root directory,
   // return null.
   if ((os.type() === 'Windows_NT' && currentPath.endsWith(':\\')) ||
@@ -79,10 +80,10 @@ export function getGitConfigUrl(
 
   try {
     // Try to look up a .git/config and parse the file for the url
-    let statSync = fs.statSync(path.resolve(currentPath, '.git'));
+    let statSync = fs.statSync(path.resolve(currentPath, gitFolder));
     if (statSync.isDirectory()) {
       let gitConfig = parseGitConfig.sync(
-        {path: path.resolve(currentPath, '.git', 'config')});
+        {path: path.resolve(currentPath, gitFolder, 'config')});
       let remote: string = gitConfig[`remote "${remoteName}"`]['url'];
 
       // TODO(cnishina): this does not take into account git clone https:// or ssh://git@
@@ -125,6 +126,7 @@ export function getGitConfigUrl(
       remoteBranch,
       pathOption,
       newPath,
-      appendPath);
+      appendPath,
+      gitFolder);
   }
 }

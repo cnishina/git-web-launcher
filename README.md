@@ -1,4 +1,6 @@
-# GitHub Web Launcher
+# GitHub Web Launcher [![CircleCI](https://circleci.com/gh/cnishina/github-web-launcher.svg?style=svg)](https://circleci.com/gh/cnishina/github-web-launcher)
+
+not the webdriver-manager cli
 
 ## Using Github Web Launcher
 

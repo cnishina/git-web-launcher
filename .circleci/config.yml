@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/workspace
+    docker:
+      - image: circleci/node:8-browsers
+
+    steps:
+      - checkout
+
+      - run: node --version
+      - run: npm --version
+      - run: google-chrome --version
+
+      - run: npm install
+      - run: npm test

@@ -1,6 +1,8 @@
 import * as path from 'path';
 import { getGitConfigUrl } from './chrome_launch';
 
+const gitFolder = 'git'
+
 describe('chrome_launch', () => {
   describe('getGitConfigUrl', () => {
     describe('default', () => {
@@ -12,7 +14,7 @@ describe('chrome_launch', () => {
         let pathOption = '.';
         let appendPath = '';  
         let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
-          currentPath, appendPath);
+          currentPath, appendPath, gitFolder);
         expect(gitUrl).toEqual('https://github.com/foo/bar/tree/master/');
       });
 
@@ -20,7 +22,7 @@ describe('chrome_launch', () => {
         let pathOption = '';
         let appendPath = '';  
         let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
-          currentPath, appendPath);
+          currentPath, appendPath, gitFolder);
         expect(gitUrl).toEqual('https://github.com/foo/bar/tree/master/');
       });
     });
@@ -34,7 +36,7 @@ describe('chrome_launch', () => {
         let currentPath = path.resolve('spec/support/files');
         let appendPath = '';
         let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
-          currentPath, appendPath);
+          currentPath, appendPath, gitFolder);
         expect(gitUrl).toEqual(
           'https://github.com/foo/bar/tree/master/path/to');
       });
@@ -44,7 +46,7 @@ describe('chrome_launch', () => {
         let currentPath = path.resolve('spec/support/files/path');
         let appendPath = '';
         let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
-          currentPath, appendPath);
+          currentPath, appendPath, gitFolder);
         expect(gitUrl).toEqual(
           'https://github.com/foo/bar/tree/master/path/to');
       });
@@ -55,7 +57,7 @@ describe('chrome_launch', () => {
         let currentPath = path.resolve('spec/support/files/path/to');
         let appendPath = '';
         let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
-          currentPath, appendPath);
+          currentPath, appendPath, gitFolder);
         expect(gitUrl).toEqual(
           'https://github.com/foo/bar/tree/master/another/path/to');
       });
@@ -70,7 +72,7 @@ describe('chrome_launch', () => {
         let currentPath = path.resolve('spec/support/files');
         let appendPath = '';
         let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
-          currentPath, appendPath);
+          currentPath, appendPath, gitFolder);
         expect(gitUrl).toEqual(
           'https://github.com/foo/bar/tree/master/path/to');
       });
@@ -80,7 +82,7 @@ describe('chrome_launch', () => {
         let currentPath = path.resolve('spec/support/files/another/path/to/');
         let appendPath = '';
         let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
-          currentPath, appendPath);
+          currentPath, appendPath, gitFolder);
         expect(gitUrl).toEqual(
           'https://github.com/foo/bar/tree/master/path/to');
       });
@@ -95,7 +97,7 @@ describe('chrome_launch', () => {
         let currentPath = path.resolve('spec/support/files/');
         let appendPath = '';
         let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
-          currentPath, appendPath);
+          currentPath, appendPath, gitFolder);
         expect(gitUrl).toEqual('https://github.com/foo/bar/blob/master/path/to/file');
       });
 
@@ -104,7 +106,7 @@ describe('chrome_launch', () => {
         let currentPath = path.resolve('spec/support/files/path');
         let appendPath = '';
         let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
-          currentPath, appendPath);
+          currentPath, appendPath, gitFolder);
         expect(gitUrl).toEqual(
           'https://github.com/foo/bar/blob/master/path/to/file');
       });
@@ -115,7 +117,7 @@ describe('chrome_launch', () => {
         let currentPath = path.resolve('spec/support/files/path/to');
         let appendPath = '';
         let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
-          currentPath, appendPath);
+          currentPath, appendPath, gitFolder);
         expect(gitUrl).toEqual(
           'https://github.com/foo/bar/blob/master/another/path/to/file');
       });
@@ -130,7 +132,7 @@ describe('chrome_launch', () => {
         let currentPath = path.resolve('spec/support/files');
         let appendPath = '';
         let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
-          currentPath, appendPath);
+          currentPath, appendPath, gitFolder);
         expect(gitUrl).toEqual(
           'https://github.com/foo/bar/blob/master/path/to/file');
       });
@@ -140,7 +142,7 @@ describe('chrome_launch', () => {
         let currentPath = path.resolve('spec/support/files/another/path/to/');
         let appendPath = '';
         let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
-          currentPath, appendPath);
+          currentPath, appendPath, gitFolder);
         expect(gitUrl).toEqual(
           'https://github.com/foo/bar/blob/master/path/to/file');
       });
