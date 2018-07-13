@@ -21,7 +21,7 @@ export function launch() {
   if (argv._.length >= 3) {
     branch = argv._[2];
   }
-  getChromeInstallation().then(chrome => {
+  return getChromeInstallation().then(chrome => {
     url = getGitConfigUrl(remote, branch, pathOption, currentPath, '');
 
     // Fire and forget Chrome.
