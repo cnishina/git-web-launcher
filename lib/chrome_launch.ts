@@ -90,6 +90,9 @@ export function getGitConfigUrl(
       let url: string;
       if (remote.startsWith('http')) {
         url = remote;
+        if (url.endsWith('.git')) {
+          url = url.substring(0, url.length - 4);
+        }
       } else {
         url = remote.replace(':', '/').replace('git@', 'https://')
       }
