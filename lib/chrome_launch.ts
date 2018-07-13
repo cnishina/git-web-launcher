@@ -6,9 +6,9 @@ import { By, Capabilities } from 'selenium-webdriver';
 import { Driver, ServiceBuilder } from 'selenium-webdriver/chrome';
 import { ChromeDriver } from 'webdriver-manager-replacement';
 
-let outDir = path.resolve(__dirname, '..', 'downloads');
-let chromeDriverFile = path.resolve(outDir, 'chromedriver');
-let installationFile = path.resolve(outDir, 'installation.info')
+export let outDir = path.resolve(__dirname, '..', 'downloads');
+export let chromeDriverFile = path.resolve(outDir, 'chromedriver');
+export let installationFile = path.resolve(outDir, 'installation.info')
 
 /**
  * Asynchronous download for the ChromeDriver binary using webdriver-manager.
