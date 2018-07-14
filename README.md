@@ -1,12 +1,12 @@
-# GitHub Web Launcher [![CircleCI](https://circleci.com/gh/cnishina/github-web-launcher.svg?style=svg)](https://circleci.com/gh/cnishina/github-web-launcher)
+# Git Web Launcher [![CircleCI](https://circleci.com/gh/cnishina/github-web-launcher.svg?style=svg)](https://circleci.com/gh/cnishina/github-web-launcher)
 
-not the webdriver-manager cli
+Launching :rocket::rocket::rocket: from command line to GitHub :octocat: for Chrome
 
-## Using Github Web Launcher
+## Using Git Web Launcher
 
 Install globally:
 ```
-npm install -g github-web-launcher
+npm install -g git-web-launcher
 ```
 
 In a git repo folder via command line:
@@ -17,9 +17,7 @@ web
 Why just `web`, because its short and easy to remember.
 
 
-## Example using GitHub Web Launcher
-
-An example of using it:
+## An example using Git Web Launcher
 
 In the terminal, in the protractor repository, under the folder path `protractor/lib/driverProviders/` typing in `web` by default will navigate to the origin master url on GitHub found in the `.git/config` and navigate to the folder `lib/driverProviders`.
 
@@ -47,7 +45,7 @@ The contents of the `.git/config` is as follows:
 
 If this is the first time running it, it will download ChromeDriver, launch Chrome and navigate to `chrome://version`. It will parse the command line for Chrome and navigate to the url above.
 
-## Roadmap
+## Other examples
 
 Command line support for:
 ```
@@ -82,3 +80,9 @@ View the usptream remote and branch foobar
 ```
 web <file_or_folder> upstream foobar
 ```
+
+## Supported git providers
+
+* GitHub
+* Bitbucket
+* GitLab

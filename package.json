@@ -1,9 +1,9 @@
 {
-  "name": "github-web-launcher",
+  "name": "git-web-launcher",
   "version": "0.3.0",
   "description": "Launching from command line to GitHub",
   "bin": {
-    "github-web-launcher": "bin/github-web-launcher",
+    "git-web-launcher": "bin/git-web-launcher",
     "web": "bin/web"
   },
   "scripts": {
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cnishina/webderpy-launcher.git"
+    "url": "git+https://github.com/cnishina/git-web-launcher.git"
   },
   "author": "Craig Nishina <craig.nishina@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cnishina/webderpy-launcher/issues"
+    "url": "https://github.com/cnishina/git-web-launcher/issues"
   },
-  "homepage": "https://github.com/cnishina/webderpy-launcher#readme",
+  "homepage": "https://github.com/cnishina/git-web-launcher#readme",
   "dependencies": {
     "parse-git-config": "^2.0.2",
     "selenium-webdriver": "^4.0.0-alpha.1",
