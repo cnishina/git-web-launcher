@@ -86,32 +86,9 @@ export function getGitConfigUrl(
         {path: path.resolve(currentPath, gitFolder, 'config')});
       let remote: string = gitConfig[`remote "${remoteName}"`]['url'];
 
-      // TODO(cnishina): this does not take into account git clone https:// or ssh://git@
-      let url: string;
-      if (remote.startsWith('http')) {
-        url = remote;
-        if (url.endsWith('.git')) {
-          url = url.substring(0, url.length - 4);
-        }
-      } else {
-        url = remote.replace(':', '/').replace('git@', 'https://')
-      }
-
-      // get the path of the file or folder
-      if (pathOption.startsWith('/')) {
-        appendPath = pathOption.substring(1);
-      } else {
-        appendPath += pathOption;
-      }
-      appendPath = path.resolve(currentPath, appendPath)
-        .replace(currentPath, '').substring(1);
-      
-      if (fs.statSync(path.resolve(currentPath, appendPath)).isDirectory()) {
-        url += '/tree/' + remoteBranch + '/' + appendPath;
-      } else {
-        url += '/blob/' + remoteBranch + '/' + appendPath;
-      }
-      return url;
+      let remoteUrl = generateRemoteUrl(remote);
+      return appendGitHub(
+        remoteUrl, pathOption, currentPath, appendPath, remoteBranch);
 
     } else {
       // if the .git is not a folder, then return null.
@@ -132,4 +109,46 @@ export function getGitConfigUrl(
       appendPath,
       gitFolder);
   }
+}
+
+export function generateRemoteUrl(remote: string): string {
+  let url: string;
+  if (remote.startsWith('https://')) {
+    url = remote.replace('https://', ''); 
+  } else if (remote.startsWith('ssh://git@')) {
+    url = remote.replace('ssh://git@', '').replace(':', '/');
+  } else if (remote.startsWith('git@')) {
+    url = remote.replace('git@', '').replace(':', '/')
+  } else if (remote.startsWith('git://')) {
+    url = remote.replace('git://', '').replace(':', '/')
+  }
+  if (url.endsWith('.git')) {
+    url = url.substring(0, url.length - 4);
+  }
+  url = 'https://' + url;
+  return url;
+}
+
+export function appendGitHub(
+    remoteUrl: string,
+    pathOption: string,
+    currentPath: string,
+    appendPath: string,
+    remoteBranch: string): string {
+  let url: string;
+  // get the path of the file or folder
+  if (pathOption.startsWith('/')) {
+    appendPath = pathOption.substring(1);
+  } else {
+    appendPath += pathOption;
+  }
+  appendPath = path.resolve(currentPath, appendPath)
+    .replace(currentPath, '').substring(1);
+  
+  if (fs.statSync(path.resolve(currentPath, appendPath)).isDirectory()) {
+    url = remoteUrl + '/tree/' + remoteBranch + '/' + appendPath;
+  } else {
+    url = remoteUrl + '/blob/' + remoteBranch + '/' + appendPath;
+  }
+  return url;
 }

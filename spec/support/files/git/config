@@ -5,9 +5,39 @@
 	logallrefupdates = true
 	ignorecase = true
 	precomposeunicode = true
+
 [remote "origin"]
 	url = git@github.com:foo/bar
 	fetch = +refs/heads/*:refs/remotes/origin/*
+
+[remote "https"]
+	url = https://github.com/foo/bar
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[remote "https-git"]
+	url = https://github.com/foo/bar.git
+	fetch = +refs/heads/*:refs/remotes/https-git/*
+
+[remote "ssh"]
+	url = ssh://git@github.com:foo/bar
+	fetch = +refs/heads/*:refs/remotes/ssh/*
+[remote "ssh-git"]
+	url = ssh://git@github.com:foo/bar.git
+	fetch = +refs/heads/*:refs/remotes/ssh-git/*
+
+[remote "git-at"]
+	url = git@github.com:foo/bar
+	fetch = +refs/heads/*:refs/remotes/ssh/*
+[remote "git-at-git"]
+	url = git@github.com:foo/bar.git
+	fetch = +refs/heads/*:refs/remotes/ssh-git/*
+
+[remote "git-protocol"]
+	url = git://github.com:foo/bar
+	fetch = +refs/heads/*:refs/remotes/git-protocol/*
+[remote "git-protocol-git"]
+	url = git://github.com:foo/bar
+	fetch = +refs/heads/*:refs/remotes/git-protocol-git/*
+
 [branch "master"]
 	remote = origin
 	merge = refs/heads/master

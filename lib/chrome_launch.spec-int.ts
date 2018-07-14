@@ -4,7 +4,77 @@ import { getGitConfigUrl } from './chrome_launch';
 const gitFolder = 'git'
 
 describe('chrome_launch', () => {
-  describe('getGitConfigUrl', () => {
+  describe('getGitConfigUrl - git/config', () => {
+    let remoteBranch = 'master';
+    let currentPath = path.resolve('spec/support/files');
+    let pathOption = '.';
+
+    it('should work for "https://"', () => {
+      let remoteName = 'https';
+      let appendPath = '';
+      let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
+        currentPath, appendPath, gitFolder);
+      expect(gitUrl).toEqual('https://github.com/foo/bar/tree/master/');
+    });
+
+    it('should work for "https://" and ".git"', () => {
+      let remoteName = 'https-git';
+      let appendPath = '';
+      let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
+        currentPath, appendPath, gitFolder);
+      expect(gitUrl).toEqual('https://github.com/foo/bar/tree/master/');
+    });
+
+    it('should work for "ssh://git@"', () => {
+      let remoteName = 'ssh';
+      let appendPath = '';
+      let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
+        currentPath, appendPath, gitFolder);
+      expect(gitUrl).toEqual('https://github.com/foo/bar/tree/master/');
+    });
+
+    it('should work for "ssh://git@" and ".git"', () => {
+      let remoteName = 'ssh-git';
+      let appendPath = '';
+      let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
+        currentPath, appendPath, gitFolder);
+      expect(gitUrl).toEqual('https://github.com/foo/bar/tree/master/');
+    });
+
+    it('should work for "git@"', () => {
+      let remoteName = 'git-at';
+      let appendPath = '';
+      let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
+        currentPath, appendPath, gitFolder);
+      expect(gitUrl).toEqual('https://github.com/foo/bar/tree/master/');
+    });
+
+    it('should work for "git@" and ".git"', () => {
+      let remoteName = 'git-at-git';
+      let appendPath = '';
+      let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
+        currentPath, appendPath, gitFolder);
+      expect(gitUrl).toEqual('https://github.com/foo/bar/tree/master/');
+    });
+
+    it('should work for "git://"', () => {
+      let remoteName = 'git-protocol';
+      let appendPath = '';
+      let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
+        currentPath, appendPath, gitFolder);
+      expect(gitUrl).toEqual('https://github.com/foo/bar/tree/master/');
+    });
+
+    it('should work for "git://" and ".git"', () => {
+      let remoteName = 'git-protocol-git';
+      let appendPath = '';
+      let gitUrl = getGitConfigUrl(remoteName, remoteBranch, pathOption,
+        currentPath, appendPath, gitFolder);
+      expect(gitUrl).toEqual('https://github.com/foo/bar/tree/master/');
+    });
+  });
+
+  describe('getGitConfigUrl - navigating', () => {
     describe('default', () => {
       let remoteName = 'origin';
       let remoteBranch = 'master';
