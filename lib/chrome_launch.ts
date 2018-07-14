@@ -6,6 +6,10 @@ import { By, Capabilities } from 'selenium-webdriver';
 import { Driver, ServiceBuilder } from 'selenium-webdriver/chrome';
 import { ChromeDriver } from 'webdriver-manager-replacement';
 
+import * as bitbucketUrl from './provider/bitbucket_url';
+import * as githubUrl from './provider/github_url';
+import * as gitlabUrl from './provider/gitlab_url';
+
 export let outDir = path.resolve(__dirname, '..', 'downloads');
 export let chromeDriverFile = path.resolve(outDir, 'chromedriver');
 export let installationFile = path.resolve(outDir, 'installation.info')
@@ -87,9 +91,18 @@ export function getGitConfigUrl(
       let remote: string = gitConfig[`remote "${remoteName}"`]['url'];
 
       let remoteUrl = generateRemoteUrl(remote);
-      return appendGitHub(
-        remoteUrl, pathOption, currentPath, appendPath, remoteBranch);
-
+      if (remoteUrl.match('github')) {
+        return githubUrl.srcUrl(
+          remoteUrl, pathOption, currentPath, appendPath, remoteBranch);  
+      } else if (remoteUrl.match('gitlab')) {
+        return gitlabUrl.srcUrl(
+          remoteUrl, pathOption, currentPath, appendPath, remoteBranch);  
+      } else if (remoteUrl.match('bitbucket')) {
+        return bitbucketUrl.srcUrl(
+          remoteUrl, pathOption, currentPath, appendPath, remoteBranch);  
+      } else {
+        return null;
+      }
     } else {
       // if the .git is not a folder, then return null.
       return null;
@@ -126,29 +139,5 @@ export function generateRemoteUrl(remote: string): string {
     url = url.substring(0, url.length - 4);
   }
   url = 'https://' + url;
-  return url;
-}
-
-export function appendGitHub(
-    remoteUrl: string,
-    pathOption: string,
-    currentPath: string,
-    appendPath: string,
-    remoteBranch: string): string {
-  let url: string;
-  // get the path of the file or folder
-  if (pathOption.startsWith('/')) {
-    appendPath = pathOption.substring(1);
-  } else {
-    appendPath += pathOption;
-  }
-  appendPath = path.resolve(currentPath, appendPath)
-    .replace(currentPath, '').substring(1);
-  
-  if (fs.statSync(path.resolve(currentPath, appendPath)).isDirectory()) {
-    url = remoteUrl + '/tree/' + remoteBranch + '/' + appendPath;
-  } else {
-    url = remoteUrl + '/blob/' + remoteBranch + '/' + appendPath;
-  }
   return url;
 }

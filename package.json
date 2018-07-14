@@ -9,7 +9,8 @@
   "scripts": {
     "prepublish": "tsc",
     "tsc": "tsc",
-    "test": "tsc && jasmine JASMINE_CONFIG_PATH=spec/support/jasmine.json"
+    "test-int": "tsc && jasmine JASMINE_CONFIG_PATH=spec/jasmine-int.json",
+    "test-unit": "tsc && jasmine JASMINE_CONFIG_PATH=spec/jasmine-unit.json"
   },
   "repository": {
     "type": "git",
