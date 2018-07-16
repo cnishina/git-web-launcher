@@ -1,9 +1,26 @@
-let argv = require('yargs').argv;
 import * as path from 'path';
 import * as childProcess from 'child_process';
 import {getGitConfigUrl, getChromeInstallation} from './chrome_launch';
 
 // TODO(cnishina): add a verbose flag and use the logging method everywhere.
+
+let argv = require('yargs')
+  .usage('Usage: $0 <command> [options]')
+  .command(
+    '[file]',
+    'Launches Chrome for the file name or folder path (default = ".") to the ' +
+    'remote and branch. The remote name is optional (default = "origin"). ' +
+    'The branch name is also optional (default = "master")')
+  .command(
+    '[file] [remote]',
+    'Launches the file name or folder path to the remote name.')
+  .command(
+    '[file] [remote] [branch]',
+    'Launches the file name or folder path to the remote name and branch.')
+  .alias('b', 'blame')
+  .describe('b', 'The blame or annotated view of the file.')
+  .default('b', false)
+  .argv;
 
 export function launch() {
   let remote = 'origin';
@@ -22,7 +39,7 @@ export function launch() {
     branch = argv._[2];
   }
   return getChromeInstallation().then(chrome => {
-    url = getGitConfigUrl(remote, branch, pathOption, currentPath, '');
+    url = getGitConfigUrl(remote, branch, pathOption, currentPath, '', argv);
 
     // Fire and forget Chrome.
     console.log(url);

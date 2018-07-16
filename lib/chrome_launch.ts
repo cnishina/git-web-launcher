@@ -74,6 +74,7 @@ export function getGitConfigUrl(
     pathOption: string,
     currentPath: string,
     appendPath: string,
+    flags: any,
     gitFolder: string = '.git'): string|null {
   // If we have navigated to the windows main drive or the root directory,
   // return null.
@@ -92,14 +93,29 @@ export function getGitConfigUrl(
 
       let remoteUrl = generateRemoteUrl(remote);
       if (remoteUrl.match('github')) {
-        return githubUrl.srcUrl(
-          remoteUrl, pathOption, currentPath, appendPath, remoteBranch);  
+        if (flags.blame || flags.b) {
+          return githubUrl.blameUrl(
+            remoteUrl, pathOption, currentPath, appendPath, remoteBranch);  
+        } else {
+          return githubUrl.srcUrl(
+            remoteUrl, pathOption, currentPath, appendPath, remoteBranch);  
+        }
       } else if (remoteUrl.match('gitlab')) {
-        return gitlabUrl.srcUrl(
-          remoteUrl, pathOption, currentPath, appendPath, remoteBranch);  
+        if (flags.blame || flags.b) {
+          return gitlabUrl.blameUrl(
+            remoteUrl, pathOption, currentPath, appendPath, remoteBranch);  
+        } else {
+          return gitlabUrl.srcUrl(
+            remoteUrl, pathOption, currentPath, appendPath, remoteBranch);  
+        }
       } else if (remoteUrl.match('bitbucket')) {
-        return bitbucketUrl.srcUrl(
-          remoteUrl, pathOption, currentPath, appendPath, remoteBranch);  
+        if (flags.blame || flags.b) {
+          return bitbucketUrl.blameUrl(
+            remoteUrl, pathOption, currentPath, appendPath, remoteBranch);  
+        } else {
+          return bitbucketUrl.srcUrl(
+            remoteUrl, pathOption, currentPath, appendPath, remoteBranch);  
+        }
       } else {
         return null;
       }
@@ -120,6 +136,7 @@ export function getGitConfigUrl(
       pathOption,
       newPath,
       appendPath,
+      flags,
       gitFolder);
   }
 }
