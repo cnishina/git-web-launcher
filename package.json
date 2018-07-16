@@ -8,6 +8,7 @@
   },
   "scripts": {
     "prepublish": "tsc",
+    "commit": "git-cz",
     "tsc": "tsc",
     "test-int": "tsc && jasmine JASMINE_CONFIG_PATH=spec/jasmine-int.json",
     "test-unit": "tsc && jasmine JASMINE_CONFIG_PATH=spec/jasmine-unit.json"
@@ -33,7 +34,14 @@
     "@types/node": "^10.5.2",
     "@types/parse-git-config": "^2.0.0",
     "@types/selenium-webdriver": "^3.0.10",
+    "commitizen": "^2.10.1",
+    "cz-conventional-changelog": "^2.1.0",
     "jasmine": "^3.1.0",
     "typescript": "^2.9.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
