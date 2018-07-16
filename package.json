@@ -1,6 +1,6 @@
 {
   "name": "git-web-launcher",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Launching from command line to GitHub",
   "bin": {
     "git-web-launcher": "bin/git-web-launcher",
@@ -36,6 +36,7 @@
     "@types/selenium-webdriver": "^3.0.10",
     "commitizen": "^2.10.1",
     "cz-conventional-changelog": "^2.1.0",
+    "git-cz": "^1.7.1",
     "jasmine": "^3.1.0",
     "typescript": "^2.9.2"
   },
