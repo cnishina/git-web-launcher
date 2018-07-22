@@ -1,13 +1,13 @@
 {
   "name": "git-web-launcher",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Launching from command line to GitHub",
   "bin": {
     "git-web-launcher": "bin/git-web-launcher",
     "web": "bin/web"
   },
   "scripts": {
-    "prepublish": "tsc",
+    "prepare": "tsc",
     "commit": "git-cz",
     "tsc": "tsc",
     "test-int": "tsc && jasmine JASMINE_CONFIG_PATH=spec/jasmine-int.json",

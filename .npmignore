@@ -1,5 +1,5 @@
 .circleci
-dist/*.spec-*
+dist/**/*.spec-*
 dist/spec/
 downloads/
 lib/
