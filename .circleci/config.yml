@@ -13,5 +13,5 @@ jobs:
       - run: google-chrome --version
 
       - run: npm install
-      - run: npm test-unit
-      - run: npm test-int
+      - run: npm run test-unit
+      - run: npm run test-int

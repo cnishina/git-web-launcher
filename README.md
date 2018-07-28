@@ -1,5 +1,5 @@
 # Git Web Launcher 
-[![CircleCI](https://circleci.com/gh/cnishina/github-web-launcher.svg?style=shield)](https://circleci.com/gh/cnishina/github-web-launcher)
+[![CircleCI](https://circleci.com/gh/cnishina/git-web-launcher.svg?style=shield)](https://circleci.com/gh/cnishina/git-web-launcher)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 Launching :rocket::rocket::rocket: from command line to GitHub :octocat: for Chrome
