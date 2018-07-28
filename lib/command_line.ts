@@ -29,6 +29,12 @@ export function launch() {
   let currentPath = path.resolve('.');
   let pathOption = '';
 
+
+  // TODO(cnishina): save browser location if provided and write to file.
+  if (argv._.length == 0) {
+
+  }
+
   if (argv._.length >= 1) {
     pathOption = argv._[0];
   }
@@ -43,7 +49,7 @@ export function launch() {
 
     // Fire and forget Chrome.
     console.log(url);
-    childProcess.spawn(chrome, [url]);
+    childProcess.exec(chrome + ' ' + url);
   }).catch(err => {
     console.error(err);
   });

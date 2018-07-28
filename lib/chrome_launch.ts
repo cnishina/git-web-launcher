@@ -11,17 +11,20 @@ import * as githubUrl from './provider/github_url';
 import * as gitlabUrl from './provider/gitlab_url';
 
 export let outDir = path.resolve(__dirname, '..', 'downloads');
-export let chromeDriverFile = path.resolve(outDir, 'chromedriver');
+export let chromeDriverConfigFile = path.resolve(outDir, 'chromedriver.config.json');
 export let installationFile = path.resolve(outDir, 'installation.info')
 
 /**
  * Asynchronous download for the ChromeDriver binary using webdriver-manager.
- * @returns A promise.
+ * @returns A promise for the last installed chromedriver binary.
  */
-export function setupChromeDriver(): Promise<void> {
+export function setupChromeDriver(): Promise<string> {
   let chromeDriver = new ChromeDriver();
   chromeDriver.outDir = outDir;
-  return chromeDriver.updateBinary().catch(err => {
+  return chromeDriver.updateBinary().then(() => {
+    let contents = fs.readFileSync(chromeDriverConfigFile).toString();
+    return JSON.parse(contents)['last'];
+  }).catch(err => {
     console.error(err);
   });
 }
@@ -40,7 +43,7 @@ export async function getChromeInstallation(): Promise<string> {
     return fs.readFileSync(installationFile).toString();
   } catch(err) {
     // Get the ChromeDriver binaries
-    await setupChromeDriver();
+    let chromeDriverFile = await setupChromeDriver();
 
     // Launch Chrome directly with ChromeDriver. After testing headless does
     // not work when navigating to chrome://version.
