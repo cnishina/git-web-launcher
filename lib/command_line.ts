@@ -1,6 +1,7 @@
+import * as os from 'os';
 import * as path from 'path';
 import * as childProcess from 'child_process';
-import {getGitConfigUrl, getChromeInstallation} from './chrome_launch';
+import { getGitConfigUrl } from './chrome_launch';
 
 // TODO(cnishina): add a verbose flag and use the logging method everywhere.
 
@@ -44,13 +45,15 @@ export function launch() {
   if (argv._.length >= 3) {
     branch = argv._[2];
   }
-  return getChromeInstallation().then(chrome => {
-    url = getGitConfigUrl(remote, branch, pathOption, currentPath, '', argv);
-
-    // Fire and forget Chrome.
-    console.log(url);
-    childProcess.exec(chrome + ' ' + url);
-  }).catch(err => {
-    console.error(err);
-  });
+  
+  url = getGitConfigUrl(remote, branch, pathOption, currentPath, '', argv);
+  // Fire and forget Chrome.
+  console.log(url);
+  if (os.type() === 'Linux') {
+    childProcess.exec(`xdg-open ${url}`);
+  } else if (os.type() === 'Darwin') {
+    childProcess.exec(`open ${url}`);
+  } else if (os.type() === 'Windows_NT') {
+    childProcess.exec(`start ${url}`);
+  }
 }

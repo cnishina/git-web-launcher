@@ -2,65 +2,9 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import * as parseGitConfig from 'parse-git-config';
-import { By, Capabilities } from 'selenium-webdriver';
-import { Driver, ServiceBuilder } from 'selenium-webdriver/chrome';
-import { ChromeDriver } from 'webdriver-manager-replacement';
-
 import * as bitbucketUrl from './provider/bitbucket_url';
 import * as githubUrl from './provider/github_url';
 import * as gitlabUrl from './provider/gitlab_url';
-
-export let outDir = path.resolve(__dirname, '..', 'downloads');
-export let chromeDriverConfigFile = path.resolve(outDir, 'chromedriver.config.json');
-export let installationFile = path.resolve(outDir, 'installation.info')
-
-/**
- * Asynchronous download for the ChromeDriver binary using webdriver-manager.
- * @returns A promise for the last installed chromedriver binary.
- */
-export function setupChromeDriver(): Promise<string> {
-  let chromeDriver = new ChromeDriver();
-  chromeDriver.outDir = outDir;
-  return chromeDriver.updateBinary().then(() => {
-    let contents = fs.readFileSync(chromeDriverConfigFile).toString();
-    return JSON.parse(contents)['last'];
-  }).catch(err => {
-    console.error(err);
-  });
-}
-
-/**
- * Get the Chrome installation. This is accomplished by trying to read the
- * installation file. If the file is unavailable, launch Chrome with
- * ChromeDriver via the selenium-webdriver lib. Navigating to
- * 'chrome://version' and get the text for the command line. Parse out the
- * installation and write it to the installation file so it can be available
- * for future lookups.
- * @returns The Chrome installation that can be executed via command line. 
- */
-export async function getChromeInstallation(): Promise<string> {
-  try {
-    return fs.readFileSync(installationFile).toString();
-  } catch(err) {
-    // Get the ChromeDriver binaries
-    let chromeDriverFile = await setupChromeDriver();
-
-    // Launch Chrome directly with ChromeDriver. After testing headless does
-    // not work when navigating to chrome://version.
-    let service = new ServiceBuilder(chromeDriverFile).build();
-    const chromeCapabilities = Capabilities.chrome();
-    let driver = Driver.createSession(chromeCapabilities, service);
-    await driver.get('chrome://version');
-
-    // Parse out the command line for Chrome, write it to file,
-    // and return the value.
-    let text = await driver.findElement(By.id('command_line')).getText();
-    let chromeInstallation = text.split('--')[0].trim();
-    await driver.quit();
-    fs.writeFileSync(installationFile, chromeInstallation);
-    return chromeInstallation;
-  }
-}
 
 /**
  * Get the git config url.

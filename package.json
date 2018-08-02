@@ -25,15 +25,12 @@
   "homepage": "https://github.com/cnishina/git-web-launcher#readme",
   "dependencies": {
     "parse-git-config": "^2.0.2",
-    "selenium-webdriver": "^4.0.0-alpha.1",
-    "webdriver-manager-replacement": "^0.1.4",
     "yargs": "^12.0.1"
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.8",
     "@types/node": "^10.5.2",
     "@types/parse-git-config": "^2.0.0",
-    "@types/selenium-webdriver": "^3.0.10",
     "commitizen": "^2.10.1",
     "cz-conventional-changelog": "^2.1.0",
     "git-cz": "^1.7.1",
